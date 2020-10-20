@@ -1,0 +1,521 @@
+//3D进度条
+$factor-size: 5;
+$dark: #444444;
+$gray: #999999;
+$light-gray: #e0e0e0;
+$white: #fefefe;
+$red: #ec0071;
+$yellow: #f1c40f;
+$orange: #ff6900;
+$lime: #d7ff00;
+$cyan: #57caf4;
+$navy: #0a4069;
+
+$faces-color: rgba(white, 0.3);
+$border-color: rgba(white, 1);
+
+$rangeTrack-border-color: $navy;
+$rangeThumb-border-color: $navy;
+
+$thumbSize: 1em;
+
+$sides-transition: 0.5s;
+$sides-transition-duration: $sides-transition;
+h1 span.heading-3d {
+    font-size: 1em;
+    font-weight: bold;
+    display: inline-block;
+    color: #eaeaea;
+    transform: scale(1.4) translateY(-0.25em) rotateZ(8deg);
+    text-shadow: 0.01em 0.02em 0.01em rgba(150, 150, 150, 0.5),
+        -0.01em -0.01em 0.01em white, 0 0 1em rgba(0, 0, 0, 0.15),
+        0.05em 0.2em 0.08em rgba(0, 0, 0, 0.3),
+        0 0.15em 0.35em rgba(0, 0, 0, 0.3), 0 0.6em 1.6em rgba(0, 0, 0, 0.3),
+        0 0.2em 2.04em white;
+    padding: 0;
+}
+
+.content {
+    padding-top: 0;
+}
+
+@mixin build-skin($color, $name) {
+    &.#{$name} {
+        .bar-face,
+        &[aria-valuenow="0"] .face-position.right {
+            background-color: $faces-color;
+        }
+        .face-position.left,
+        &[aria-valuenow="100"] .face-position.right {
+            background-color: rgba($color, 0.2);
+        }
+        &[aria-valuenow="100"] .face-position.right {
+            transition-delay: $sides-transition-duration;
+        }
+        .face-position.floor.volume-lights {
+            box-shadow: 0 -0.2em 1em rgba(0, 0, 0, 0.15),
+                0 0.2em 0.1em -5px rgba(0, 0, 0, 0.3),
+                0 -0.75em 1.75em rgba($white, 0.6);
+        }
+        .percentage:before {
+            background-color: rgba($color, 0.5);
+        }
+        .volume-lights.shine:before {
+            box-shadow: 0 1.6em 3em rgba($color, 0.25);
+        }
+
+        &:not(.has-colors) {
+            &[aria-valuenow] .face-position {
+                background-color: rgba($dark, 0.6);
+            }
+            .percentage:before {
+                background-color: transparent;
+            }
+            .volume-lights.shine:before {
+                box-shadow: 0 1.6em 3em rgba($color, 0);
+            }
+        }
+    }
+}
+
+.progress-factor {
+    font-size: $factor-size + em;
+    padding: 1em 0.2em 0;
+    flex: 0 1 100%;
+}
+
+.progress-bar {
+    font-size: 1em;
+    text-align: center;
+
+    width: 100%;
+    height: 1em;
+
+    perspective: 12em;
+    perspective-origin: 50% 50%;
+}
+
+.bar {
+    font-size: 1em;
+
+    position: relative;
+
+    display: inline-block;
+
+    width: 4em;
+    height: 1em;
+
+    transition: all $sides-transition-duration ease-in-out;
+
+    &.regular-width {
+        width: 1em;
+        &[aria-valuenow] .percentage:before {
+            width: 100%;
+        }
+    }
+
+    transform-style: preserve-3d;
+
+    &.has-rotation {
+        transform: rotateX(60deg);
+    }
+
+    .bar-face {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        display: inline-block;
+
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+
+        background-color: rgba($navy, 0.3);
+        backface-visibility: visible;
+
+        transition: transform $sides-transition-duration ease-out;
+
+        &.face-position {
+            transform-origin: 50% 100%;
+
+            &.roof {
+                transform: translateZ(1em);
+                transition-delay: $sides-transition-duration * 4;
+            }
+            &.front {
+                transform: rotateX(-90deg);
+                transition-delay: 0s;
+            }
+            &.right {
+                left: auto;
+                right: -0.5em;
+                width: 1em;
+                transform: rotateX(-90deg) rotateY(90deg) translateX(0.5em);
+                transition-delay: $sides-transition-duration;
+            }
+            &.back {
+                transform: rotateX(-90deg) rotateY(0deg) translateZ(-1em);
+                transition-delay: $sides-transition-duration * 2;
+            }
+            &.left {
+                width: 1em;
+                transform: rotateX(-90deg) rotateY(-90deg) translateX(-0.5em)
+                    translateZ(0.5em);
+                transition-delay: $sides-transition-duration * 3;
+            }
+        }
+
+        &.percentage:before {
+            content: "";
+
+            font-size: 0.25em;
+            line-height: 4em;
+
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 100%;
+
+            margin: 0;
+
+            display: block;
+
+            box-sizing: border-box;
+
+            color: rgba($dark, 0.8);
+
+            transition: all $sides-transition-duration ease-out;
+        }
+    }
+
+    @include build-skin($red, "red");
+    @include build-skin($yellow, "yellow");
+    @include build-skin($lime, "lime");
+    @include build-skin($navy, "navy");
+    @include build-skin($cyan, "cyan");
+    @include build-skin($dark, "dark");
+    @include build-skin($orange, "orange");
+
+    @for $i from 1 to 101 {
+        &[aria-valuenow="#{$i}"] {
+            .percentage:before {
+                width: $i * 1%;
+            }
+        }
+    }
+}
+
+@function set-positive($number) {
+    $result: $number * $number;
+    @return sqrt($result);
+}
+
+@mixin set-gradient-step($value1, $value2, $percent) {
+    $color-result: mix($value2, $value1, $percent);
+
+    background-color: $color-result;
+    border-bottom: 1px solid darken($color-result, 05);
+    &:after {
+        border-bottom-color: $color-result;
+    }
+}
+
+.flexy-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 4em 0;
+    .flexy-column {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        margin-bottom: 3em;
+        .flexy-item {
+            flex: 1;
+        }
+    }
+    &:nth-of-type(odd) {
+        background-color: #d8dbe4;
+    }
+    input[type="checkbox"] {
+        display: none;
+    }
+}
+
+.value-label {
+    position: relative;
+    display: inline-block;
+    margin: 4em 0 2.5em 0;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1em;
+    padding: 1em;
+    color: $white;
+    background-color: rgba($orange, 0.6);
+    border: 1px solid rgba($gray, 0.2);
+    border-radius: 0.25em;
+    box-shadow: 0 0.1em 0.25em rgba($gray, 0.6),
+        inset 0 0.15em 0.05em rgba($white, 0.2);
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.fa,
+.fa:before {
+    width: 1em;
+    height: 1em;
+    line-height: 1em;
+    text-align: center;
+}
+
+.fa {
+    margin: 0 0.1em;
+    transition: transform 0.25s ease-in-out;
+    transform-origin: 50% 55%;
+}
+
+input[type="checkbox"]:checked ~ .value-label {
+    background: $dark;
+    box-shadow: none;
+}
+
+input[type="checkbox"]:checked
+    ~ .flexy-column
+    .bar[aria-valuenow]
+    .percentage:before {
+    width: 90%;
+}
+input[type="checkbox"]:checked ~ .flexy-column .bar[aria-valuenow] {
+    &.heat-gradient {
+        .tooltip {
+            background-color: $red;
+            border-bottom: 1px solid darken($red, 05);
+            &:after {
+                border-bottom-color: $red;
+            }
+        }
+    }
+    .tooltip {
+        left: 90%;
+        &:before {
+            content: "90%";
+        }
+    }
+}
+
+.dots-pattern .percentage:before {
+    background: radial-gradient(rgba($white, 0.5) 10%, transparent 5%) 0 0,
+        radial-gradient(rgba($white, 0.5) 10%, transparent 5%) 0.5em 0.5em;
+    background-size: 1em 1em;
+}
+
+.bar.heat-gradient {
+    // .3
+    $color1: rgba($yellow, 0.8);
+    $color2: rgba($red, 0.6);
+    .face-position.left {
+        background-color: $color1;
+    }
+    .percentage:before {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ec545b+0,ec5799+100 */
+        background-color: $color1; /* Old browsers */
+        background: -moz-linear-gradient(
+            left,
+            $color1 0%,
+            $color2 100%
+        ); /* FF3.6+ */
+        background: -webkit-gradient(
+            linear,
+            left top,
+            right top,
+            color-stop(0%, $color1),
+            color-stop(100%, $color2)
+        ); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(
+            left,
+            $color1 0%,
+            $color2 100%
+        ); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(
+            left,
+            $color1 0%,
+            $color2 100%
+        ); /* Opera 11.10+ */
+        background: -ms-linear-gradient(
+            left,
+            $color1 0%,
+            $color2 100%
+        ); /* IE10+ */
+        background: linear-gradient(
+            to right,
+            $color1 0%,
+            $color2 100%
+        ); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$color1', endColorstr='$color2',GradientType=1 ); /* IE6-9 */
+        background-size: 16em;
+    }
+    .volume-lights.shine:before {
+        box-shadow: -2em 1.6em 3em -1em rgba($color1, 0.3),
+            2em 1.6em 3em -1em rgba($color2, 0.3);
+    }
+    &[valuenow="100"] .face-position.right {
+        background-color: $color2;
+    }
+}
+
+.bar.ruler .percentage:before {
+    background-image: linear-gradient(
+            rgba(255, 255, 255, 0.1) 1px,
+            transparent 1px
+        ),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 1em 1em, 1.6em 2em, 0.8em 2em;
+}
+
+.bar.ruler-2 .percentage:before {
+    background-image: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.1) 0.8em,
+            transparent 1px
+        ),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.14) 0.8em, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0.8em, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0.8em, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.26) 0.8em, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0.8em, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.34) 0.8em, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.38) 0.8em, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.42) 0.8em, transparent 1px);
+    background-size: 16em 1em;
+    background-position: 1.6em 0, 3.2em 0, 4.8em 0, 6.4em 0, 8em 0, 9.6em 0,
+        11.2em 0, 12.8em 0, 14.4em 0;
+}
+
+.bar.ruler-3 .percentage:before {
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.1) 0.8em,
+        transparent 1px
+    );
+    background-size: 1.6em 2em;
+}
+
+.bar.move .bar-face.face-position.floor,
+.bar.rotate .bar-face.face-position.floor {
+    transition: all 0.5s ease-in-out;
+}
+.bar.move:hover {
+    transform: rotateX(60deg) translateZ(0.1em);
+    .bar-face.face-position.floor.volume-lights {
+        box-shadow: 0 -0.1em 1em rgba(0, 0, 0, 0.15),
+            0 0.35em 0.2em -8px rgba(0, 0, 0, 0.15),
+            0 -0.75em 1.75em rgba(254, 254, 254, 0.6);
+    }
+}
+
+.bar.rotate.hover,
+.bar.rotate:hover {
+    transform: rotateX(60deg) rotate(90deg);
+    .bar-face.face-position.floor.volume-lights {
+        box-shadow: 0 0 1em rgba(0, 0, 0, 0.3),
+            0.2em 0 0.1em -5px rgba(0, 0, 0, 0.3),
+            -0.5em 0 1.75em rgba(254, 254, 254, 0.6);
+    }
+    .bar-face.face-position.shine:before {
+        box-shadow: none;
+    }
+}
+
+.tooltip {
+    $color: lighten($red, 25);
+    font-size: 0.65em;
+    font-weight: bold;
+    margin: 1.85em 0 0 -0.5em;
+    display: inline-block;
+    position: absolute;
+    line-height: 1em;
+    height: 1em;
+    width: 1em;
+    left: 0;
+    background-color: $color;
+    color: $white;
+    border-bottom: 1px solid darken($color, 05);
+    box-shadow: 0 0.05em 0.1em -0.02em rgba(0, 0, 0, 0.4),
+        0 0.1em 0.6em rgba(0, 0, 0, 0.3);
+    transition: all $sides-transition-duration ease-out;
+    &:after,
+    &:before {
+        // transition: all $sides-transition-duration ease-out;
+        display: inline-block;
+        font-size: 0.25em;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    &:after {
+        content: "";
+        height: 0;
+        width: 0;
+        margin: -0.75em 0 0 1em;
+        border: 1em solid transparent;
+        border-bottom-color: $color;
+        border-top-width: 0;
+        transition: all $sides-transition-duration ease-out;
+    }
+    &:before {
+        height: 100%;
+        text-align: center;
+    }
+    &.pos-2 {
+        box-shadow: none;
+        margin-top: -0.6em;
+        transform: rotateX(-90deg) translateY(-0.5em);
+        transform-origin: 50% 100%;
+        &:after {
+            margin: 3.75em 0 0 1em;
+            border-bottom-color: inherit;
+            border-bottom-width: 0;
+            border-top-width: 1em;
+            border-top-color: $color;
+        }
+        .shadow {
+            display: inline-block;
+            width: 20%;
+            height: 0.02em;
+            background-color: transparent;
+            position: absolute;
+            left: 40%;
+            bottom: 0;
+            box-shadow: 0 0.7em 0.05em black, 0 0.7em 0.3em black;
+        }
+    }
+    &.white {
+        background-color: $white;
+        border-bottom: 1px solid darken($white, 10);
+        color: $dark;
+        box-shadow: 0 0.08em 0.1em 0em rgba(0, 0, 0, 0.2),
+            0 0.1em 1.6em rgba(0, 0, 0, 0.2);
+        &:after {
+            border-bottom-color: $white;
+        }
+    }
+}
+
+@for $i from 0 to 101 {
+    .bar[aria-valuenow="#{$i}"] {
+        .tooltip {
+            left: $i * 1%;
+            &:before {
+                content: "#{$i}%";
+            }
+        }
+        &.heat-gradient .heat-gradient-tooltip {
+            @include set-gradient-step($yellow, $red, $i);
+        }
+    }
+}

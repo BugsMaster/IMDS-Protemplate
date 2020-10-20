@@ -1,0 +1,312 @@
+/**
+    基本样式
+ */
+ .query-form{
+    padding: 5px 10px;
+    .el-form-item{
+        margin-bottom: 0;
+        label{
+            color: #666;
+        }
+    }
+}
+// 分页
+.pagination-bar .el-pagination {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    color: #595959;
+    text-align: right;
+    $bg-pag: #f0eff5;
+
+    .btn-prev {
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+        background-color: $bg-pag;
+    }
+
+    .el-pager li {
+        background-color: $bg-pag;
+    }
+
+    .btn-next {
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background-color: $bg-pag;
+    }
+
+    .el-pagination__jump .el-input__inner,
+    .el-pagination__sizes .el-input__inner {
+        background-color: $bg-pag;
+        border-radius: 15px;
+    }
+}
+.pagination-box{
+    color: #595959;
+    text-align: right;
+}
+//@at-root
+.el-drawer__container{
+    .drawer{
+        overflow: auto;
+        .el-drawer__header{
+            border-bottom: 1px solid $mauve;
+            padding-bottom: 10px;
+            margin-bottom:20px;
+            color: $mauve;
+        }
+        .drawer_box{
+            height: 100%;
+            padding:0 20px;
+            display: flex;
+            flex-direction: column;
+            .drawer_content{
+                overflow: auto;
+                flex:1;
+            }
+            .drawer_footer{
+                padding:20px;
+                display: flex;
+                .el-button{
+                    flex:1;
+                }
+            }
+        }
+    }
+}
+.el-drawer__container{
+    .drawer_vertical{
+        overflow: auto;
+        .el-drawer__header{
+            border-bottom: 1px solid $mauve;
+            padding-bottom: 10px;
+            margin-bottom:0px;
+            color: $mauve;
+        }
+        .el-drawer__body{
+            overflow: auto;
+            height: 100%;
+            .drawer_box{
+                padding:10px 20px;
+                display: flex;
+                flex-direction: column;
+                .drawer_content{
+                    overflow: auto;
+                    flex:1;
+                }
+            } 
+        }
+        
+    }
+}
+//卡片样式
+.el-card.is-always-shadow, .el-card.is-hover-shadow:focus, .el-card.is-hover-shadow:hover{
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.14) !important;
+}
+//下拉树
+.el-tree{
+    background-color: transparent;
+    font-size:14px;
+    color: #666;
+    &.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content{
+        color: $mauve;
+    }
+}
+.el-tabs{
+    .el-tabs__item{
+        color: #666;
+    }
+}
+/**
+    全局覆盖element-ui样式
+ */
+.el-dialog__body {
+    padding: 15px 20px;
+}
+.el-dialog__footer {
+    padding: 0 15px 25px 15px;
+}
+.el-table__body-wrapper {
+    overflow-x: hidden;
+}
+.el-date-editor .el-range-separator{
+    width:10%;
+}
+.el-dialog__header {
+    border-bottom: 1px dashed $blue;
+}
+/*公共小边框*/
+.border-angle{
+    position: relative;
+    &:before{
+        content: '';
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        left: -3px;
+        top:-3px;
+        background: url("/static/img/border_angle_blue.png") no-repeat;
+    }
+    &:after{
+        content: '';
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        right: -3px;
+        top:-3px;
+        background: url("/static/img/border_angle_blue.png") no-repeat;
+        transform: rotate(90deg);
+    }
+    .border-angle-bottom{
+        pointer-events: none;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        &:before{
+            content: '';
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            left: -3px;
+            bottom:-3px;
+            background: url("/static/img/border_angle_blue.png") no-repeat;
+            transform: rotate(270deg);
+        }
+        &:after{
+            content: '';
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            right: -3px;
+            bottom:-3px;
+            background: url("/static/img/border_angle_blue.png") no-repeat;
+            transform: rotate(180deg);
+        }
+    }
+}
+//输入康只读
+.read-only{
+    .el-input__inner{
+        cursor: not-allowed;
+    }
+}
+//帮助
+.help-info-list{
+    li{
+        margin-bottom:10px;
+    }
+}
+.info-angle-border{
+    position: absolute;
+    top:1px;
+    left: 1px;
+    width: 0;
+    height: 0;
+    border-top: 20px solid #666;
+    border-right: 20px solid transparent;
+    i{
+        position: absolute;
+        top:-20px;
+        left: 0;
+        color: $yellow;
+        font-size: 12px;
+    }
+}
+
+/*常用颜色*/
+.green{
+    color: #39b54a;
+}
+.red{
+    color: #fd2671;
+}
+.orange{
+    color: #fa9b25;
+}
+.yellow{
+    color: #fed904;
+}
+.blue{
+    color: #0081ff;
+}
+.cyan{
+    color:#00bcd4;
+}
+.brown{
+    color:#a5673f;
+}
+.purple-light{
+    color:#a877e2;
+}
+.purple{
+    color:#80007e;
+}
+.danger{
+    color: #f56c6c;
+}
+.grey{
+    color: #cccccc;
+}
+.dark{
+    color: #000000;
+}
+
+
+
+//文字闪光
+.flash-text-yellow{
+    text-shadow: 0 0 1px rgba(254, 252, 124, 1 ), 0 0 3px rgba(255, 217, 54, 0.7 ), 0 0 5px rgba(255, 0, 0, 1 ), 0 0 14px rgba(255, 0, 0, 1 ), 0 0 17px rgba(255, 0, 0, 1 ), 0 0 20px rgba(255, 0, 0, 1 ), 0 5px 25px rgba(0, 0, 255, 0.9 );
+}
+.flash-text-blue{
+    text-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 5px #fff, 0 0 7px #7399fe, 0 0 12px #7399fe, 0 0 17px #228DFF;
+}
+.flash-text-green{
+    text-shadow: 0 0 1px #fff, 0 0 3px #fff,  0 0 5px $green, 0 0 12px $green, 0 0 17px $green;
+}
+
+.box-shadow{
+    box-shadow: 0 10px 30px -12px rgba(0,0,0,.42), 0 4px 25px 0 rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
+}
+
+
+
+@keyframes cyanlight {
+    from {
+        text-shadow: 0 0 2px #f2f2f2, 0 0 5px $cyan, 0 0 20px #00b100,
+            0 0 60px $blue;
+    }
+    to {
+        color: #ccc;
+        text-shadow: 0 0 3px #f2f2f2;
+    }
+}
+@keyframes greenlight {
+    from {
+        text-shadow: 0 0 2px #f2f2f2, 0 0 5px $green, 0 0 20px #00b100,
+            0 0 60px #00ff04;
+    }
+    to {
+        color: #ccc;
+        text-shadow: 0 0 3px #f2f2f2;
+    }
+}
+@keyframes redlight {
+    from {
+        text-shadow: 0 0 2px #f2f2f2, 0 0 5px $red, 0 0 20px #d80000,
+            0 0 60px #e83c3d;
+    }
+    to {
+        color: #ccc;
+        text-shadow: 0 0 3px #f2f2f2;
+    }
+}
+@keyframes yellowlight {
+    from {
+        text-shadow: 0 0 2px #f2f2f2, 0 0 5px $orange, 0 0 20px #d80000,
+            0 0 60px $yellow;
+    }
+    to {
+        color: #ccc;
+        text-shadow: 0 0 3px #f2f2f2;
+    }
+}

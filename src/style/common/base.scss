@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;
+    @include scrollbar();
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: $ghostWhite;
+    font-size: 16px;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#app {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.animated {
+    animation-duration: 500ms;
+    animation-fill-mode: both;
+}
+
+//=====常用类样式=======
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+    clear: both;
+}
+
+.ellips{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    word-break: break-all;
+}
+/* 大小不定元素垂直居中 */
+.dib_vm{display:inline-block; width:0; height:100%; vertical-align:middle;}
+/* 按钮禁用 */
+.disabled{outline:0 none; cursor:not-allowed!important; opacity:.4; pointer-events:none;}
+
+
+
+
