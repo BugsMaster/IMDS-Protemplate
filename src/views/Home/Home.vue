@@ -12,12 +12,11 @@
 import api from "assets/js/api";
 import { showChartTip } from "assets/js/utils";
 import VisualTemplate, { visualSetOptions} from 'components/visual-platform/index'
-import {GaugeOne,TitlePanelOne,TitlePanelTwo,LineOne} from 'components/visual'
 import Periodictable3D from 'components/visual/Periodictable_3D.vue'
 export default {
     components:{
         VisualTemplate,
-        Periodictable3D
+        Periodictable3D,
     },
     data() {
         return {
@@ -57,7 +56,9 @@ export default {
     mounted() {
     },
     methods: {
-       
+        ddd(){
+            console.log(999)
+        }
     },
     watch: {
     },
@@ -71,6 +72,17 @@ export default {
     height: 100%;
     .slot-box{
         height: 100%;
+    }
+}
+.box{
+    background-color: #e9e9e9;
+    position: absolute;
+    left: 700px;
+    top: 100px;
+    padding: 100px;
+    z-index: 1000;
+    li{
+        margin-bottom: 70px;
     }
 }
 </style>

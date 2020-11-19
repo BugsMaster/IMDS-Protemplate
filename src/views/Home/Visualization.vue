@@ -19,6 +19,20 @@
                     <dv-decoration-3 style="width:250px;height:30px;float:right" />
                 </div>
                 <FlipClock class="flip-clock"></FlipClock>
+                <ul class="box">
+                    <li>
+                        <ButtonOne :config="{type:1}"></ButtonOne>
+                    </li>
+                    <li>
+                        <ButtonOne :config="{type:2}"></ButtonOne>
+                    </li>
+                    <li>
+                        <ButtonOne :config="{type:3}"></ButtonOne>
+                    </li>
+                    <li>
+                        <ButtonOne :config="{type:4}"></ButtonOne>
+                    </li>
+                </ul>
             </div>
             <div slot="log5" class="slot-box" style="padding:30px">
                <TitlePanelOne :config="titlePanel_one_config"></TitlePanelOne>
@@ -40,6 +54,7 @@ import VisualTemplate, { visualSetOptions} from 'components/visual-platform/inde
 import {GaugeOne,TitlePanelOne,TitlePanelTwo,LineOne} from 'components/visual'
 import Periodictable3D from 'components/visual/Periodictable_3D.vue'
 import FlipClock from 'components/FlipClock'
+import {ButtonOne} from 'components/visual'
 export default {
     components:{
         VisualTemplate,
@@ -48,7 +63,8 @@ export default {
         TitlePanelTwo,
         Periodictable3D,
         LineOne,
-        FlipClock
+        FlipClock,
+        ButtonOne
     },
     data() {
         return {
@@ -228,7 +244,8 @@ export default {
                     },
                 ],
             },
-            mainConfig:{}
+            mainConfig:{},
+            chartMain:{}
         }
     },
     computed: {},
@@ -277,8 +294,8 @@ export default {
             },2000);
         },
         LineOneStart(){
-            showChartTip.loading(this.$refs[this.LineOneOption.chartID].chartMain);
             this.getLineData(()=>{
+                showChartTip.loading(this.$refs[this.LineOneOption.chartID].chartMain);
                 this.$refs[this.LineOneOption.chartID].chartMain.hideLoading();
                 this.$refs[this.LineOneOption.chartID].chartMain.clear();
                 this.$refs[this.LineOneOption.chartID].setOption(this.LineOneOption);
