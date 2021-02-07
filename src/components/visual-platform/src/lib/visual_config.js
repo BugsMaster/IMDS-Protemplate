@@ -24,7 +24,8 @@ const visualConfig ={
             },
             position:{
                 x:0,
-                y:0
+                y:0,
+                zIndex:1
             },
         }
     ]
@@ -84,12 +85,16 @@ const visualSetOptions = function(deconfig){
                             }
                             if(!item.hasOwnProperty('width')){ item.width = 500 };
                             if(!item.hasOwnProperty('height')){ item.height = 300 };
-                            if(!item.hasOwnProperty('position')){ item.position = {x:20*index,y:20*index}};
+                            if(!item.hasOwnProperty('position')){ 
+                                item.position = {x:20*index,y:20*index,zIndex:1}
+                            }else{
+                                item.position.zIndex = item.position.zIndex||1;
+                            }
                             // borderOptions
                             if(item.hasOwnProperty('borderOptions')){
                                 if(!item.borderOptions.hasOwnProperty('type')) { item.borderOptions['type'] = 0};
                                 if(!item.borderOptions.hasOwnProperty('colorArr')) { item.borderOptions['colorArr'] = ['steelblue'] };
-                                if(!item.borderOptions.hasOwnProperty('bgColor')) { item.borderOptions['bgColor'] = 'transparent' };
+                                if(!item.borderOptions.hasOwnProperty('bgColor')) { item.borderOptions['bgColor'] = 'rgba(25,25,40,.5)' };
                                 if(!item.borderOptions.hasOwnProperty('reverse')) { item.borderOptions['reverse'] = false };
                                 if(!item.borderOptions.hasOwnProperty('dur')) { item.borderOptions['dur'] = 3;};
                                 if(!item.borderOptions.hasOwnProperty('title')) { item.borderOptions['title'] = '';};
@@ -98,7 +103,7 @@ const visualSetOptions = function(deconfig){
                                 item.borderOptions = {
                                     type:0,
                                     colorArr:['steelblue'],
-                                    bgColor:'transparent',
+                                    bgColor:'rgba(25,25,40,.5)',
                                     reverse:false,
                                     dur:3,
                                     title:'',

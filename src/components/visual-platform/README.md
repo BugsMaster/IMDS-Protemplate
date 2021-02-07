@@ -100,6 +100,14 @@ Notice：单元边框样式基于 [DataV](http://datav.jiaminghi.com/guide/borde
         <th>Default</th>
     </tr>
 	<tr align="center">
+		<td>id</td>
+		<td>--</td>
+		<td>slot唯一标识</td>
+        <td>String</td>
+		<td>true</td>
+        <td>0</td>
+    </tr>
+	<tr align="center">
 		<td>width</td>
 		<td>--</td>
 		<td>宽度</td>
@@ -129,7 +137,7 @@ Notice：单元边框样式基于 [DataV](http://datav.jiaminghi.com/guide/borde
 		<td>标题</td>
         <td>String</td>
 		<td>false</td>
-        <td>''</td>
+        <td>' '</td>
     </tr>
 	<tr align="center">
 		<td>size</td>
@@ -200,7 +208,7 @@ Notice：单元边框样式基于 [DataV](http://datav.jiaminghi.com/guide/borde
 		<td>边框标题</td>
         <td>String</td>
         <td>false</td>
-		<td>''</td>
+		<td>' '</td>
     </tr>
 	<tr align="center">
 		<td>titleWidth</td>
@@ -211,12 +219,18 @@ Notice：单元边框样式基于 [DataV](http://datav.jiaminghi.com/guide/borde
     </tr>
 </table>
 
+控制台操作的回调函数：
+
+	 保存配置：@saveConfig 参数为修改后的Config
+
+	 清空配置：@clearConfig
+
 默认配置：
 
     visualConfig ={
 	    bgcPath:'/img/bg_index.jpg',//背景图在线地址 http://ids.nuctech.com/static/img/bg_index.9af20a2.jpg
 	    title:{
-	        name:"可视化平台",
+	        name:'可视化平台',
 	        top:0,//主title高度
 	        size:16,//文字大小
 	        color:'#fff',//文字颜色
@@ -224,6 +238,7 @@ Notice：单元边框样式基于 [DataV](http://datav.jiaminghi.com/guide/borde
 	    },
 	    sectionArr:[
 	        {
+				id:'partOne',
 	           	title:{name:'one',size:16,position:{x:20,y:20},color:'#fff',isShow:true},//单元名设置
 	           	width:500,
 	           	height:300,
@@ -245,12 +260,11 @@ Notice：单元边框样式基于 [DataV](http://datav.jiaminghi.com/guide/borde
 	        },
 	    ]
 	};
-
-
+	
 使用：
 
 	组件：
-	<VisualTemplate :option="mainConfig">
+	<VisualTemplate :option="mainConfig" @clearConfig="clearConfig" @saveConfig="saveConfig">
             <!-- 依次写出需要展示的单元，单元数（sectionArr.length）
             <div class="box" :slot="index" v-for="(item,index) in mainConfig.sectionArr">
                 <span>{{item}}</span>   
@@ -277,6 +291,7 @@ Notice：单元边框样式基于 [DataV](http://datav.jiaminghi.com/guide/borde
                 },
                 sectionArr:[
                     {
+						id:'1',//对应的slot标识
                         title:{name:'one',size:18,position:{x:20,y:20},color:'#fff',isShow:true},
                         width:500,
                         height:300,
@@ -314,8 +329,8 @@ Notice：单元边框样式基于 [DataV](http://datav.jiaminghi.com/guide/borde
 	注：
 		- 初始化设置参数时在Created生命周期内
 		- visualConfig 可以导出完整的默认配置
-		- 按`H`键隐藏/显示操作台
-        - 按`E`键编辑模式切换
+		- 按`H`键隐藏/显示操作台(默认隐藏)
+		- 按`E`键编辑模式切换
 
 ## 效果： ##
 

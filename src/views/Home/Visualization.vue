@@ -50,7 +50,7 @@
 <script>
 import api from "assets/js/api";
 import { showChartTip } from "assets/js/utils";
-import VisualTemplate, { visualSetOptions} from 'components/visual-platform/index'
+import VisualTemplate, { visualSetOptions} from 'visual-platform'
 import {GaugeOne,TitlePanelOne,TitlePanelTwo,LineOne} from 'components/visual'
 import Periodictable3D from 'components/visual/Periodictable_3D.vue'
 import FlipClock from 'components/FlipClock'
